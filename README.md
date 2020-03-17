@@ -7,7 +7,7 @@ using nacos+gateway+spring security oauth2, authentication server + resource ser
 启动前安装好nacos，nacos只做注册中心，导入sql数据库。
 
 auth-9999   ：认证服务器
-commons-api ：公共的类
+commons-api ：公共类
 gateway-3344：网关
 provider-9001：资源服务器9001
 provider-9002：资源服务器9002
