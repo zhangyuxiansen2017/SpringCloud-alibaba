@@ -72,7 +72,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @return
      */
     @Bean
-    public AuthorizationCodeServices authorizationCodeServices(DataSource dataSource) { //设置授权码模式的授权码如何 存取，暂时采用内存方式
+    public AuthorizationCodeServices authorizationCodeServices(DataSource dataSource) {
         return new JdbcAuthorizationCodeServices(dataSource);
     }
 
