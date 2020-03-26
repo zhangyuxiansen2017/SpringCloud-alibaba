@@ -1,0 +1,6 @@
+com/zgm/cloud/controller/UserController.class
+com/zgm/cloud/config/AuthorizationServerConfig.class
+com/zgm/cloud/dao/UserMapper.class
+com/zgm/cloud/config/WebSecurityConfig.class
+com/zgm/cloud/service/UserDetailServiceImpl.class
+com/zgm/cloud/Auth9999.class

@@ -3,8 +3,7 @@ ENV LANG=C.UTF-8
 
 
 # set environment
-ENV
-    BASE_DIR="/" \
+ENV BASE_DIR="/" \
     TIME_ZONE="Asia/Shanghai"
 
 WORKDIR /$BASE_DIR
