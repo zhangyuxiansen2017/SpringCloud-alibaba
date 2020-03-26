@@ -10,7 +10,7 @@ WORKDIR /$BASE_DIR
 
 RUN ln -snf /usr/share/zoneinfo/$TIME_ZONE /etc/localtime && echo '$TIME_ZONE' > /etc/timezone \
 
-ADD /var/jenkins_home/workspace/springcloud/gateway-3344/target/gateway-3344-1.0-SNAPSHOT.jar app.jar
+ADD gateway-3344-1.0-SNAPSHOT.jar /app.jar
 
 
 EXPOSE 3344
