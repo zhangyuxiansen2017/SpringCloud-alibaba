@@ -2,7 +2,7 @@ FROM java:8
 ENV LANG=C.UTF-8
 
 
-# set environment
+# set environmen
 ENV BASE_DIR="/" \
     TIME_ZONE="Asia/Shanghai"
 
