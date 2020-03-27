@@ -19,7 +19,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.2.200:8848
+        server-addr: nacos
 
 
 mybatis:
