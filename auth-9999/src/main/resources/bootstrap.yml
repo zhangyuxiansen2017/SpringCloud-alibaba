@@ -32,9 +32,4 @@ management:
     web:
       exposure:
         include: "*"
-#security:
-#  oauth2:
-#    client:
-#      client-id: zgm
-#      client-secret: zgmsecret
 
