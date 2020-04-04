@@ -21,6 +21,16 @@ spring:
     nacos:
       discovery:
         server-addr: nacos
+      config:
+        server-addr: 192.168.2.150:8848
+        file-extension: yaml
+        #分组
+        group: DEV_GROUP
+        #命名空间
+        namespace:
+        #读取的配置集合
+        ext-config:
+
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
