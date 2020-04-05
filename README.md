@@ -4,7 +4,7 @@
 Based on the oauth2 distributed project of springcloud-alibaba, 
 using nacos+gateway+spring security oauth2, authentication server + resource server.
 
-启动前安装好nacos，nacos只做注册中心，导入sql数据库。
+启动前安装好nacos，nacos做注册中心和配置中心，导入sql数据库。
 
 auth-9999   ：认证服务器
 commons-api ：公共类
