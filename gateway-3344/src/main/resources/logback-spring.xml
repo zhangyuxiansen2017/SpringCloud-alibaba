@@ -6,7 +6,7 @@
 -->
 <configuration scan="false" scanPeriod="60 seconds" debug="false">
     <!-- 定义日志的根目录 -->
-    <property name="LOG_HOME" value="/app/log"/>
+    <property name="LOG_HOME" value="log"/>
     <!-- 定义日志文件名称 -->
     <property name="appName" value="springbootlog"></property>
     <!-- ch.qos.logback.core.ConsoleAppender 表示控制台输出 -->
@@ -44,13 +44,13 @@
                 %i：当文件大小超过maxFileSize时，按照i进行文件滚动
             -->
             <fileNamePattern>${LOG_HOME}/${appName}-%d{yyyy-MM-dd}-%i.log</fileNamePattern>
-            <!--
+            <!-- 
                 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件。假设设置每天滚动，
                 且maxHistory是365，则只保存最近365天的文件，删除之前的旧文件。注意，删除旧文件是，
                 那些为了归档而创建的目录也会被删除。
             -->
             <MaxHistory>365</MaxHistory>
-            <!--
+            <!-- 
                      当日志文件超过maxFileSize指定的大小是，根据上面提到的%i进行日志文件滚动 注意此处配置SizeBasedTriggeringPolicy是无法实现按文件大小进行滚动的，必须配置timeBasedFileNamingAndTriggeringPolicy
             -->
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -62,11 +62,11 @@
             <pattern>%d{yyyy-MM-dd HH:mm:ss} === - [ %-5level ] [ %logger{50} : %line ] - %msg%n</pattern>
         </layout>
     </appender>
-    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
-        <destination>logstash:4560</destination>
-        <encoder charset="UTF-8" class="net.logstash.ogback.encoder.LogstashEncoder"/>
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>192.168.2.201:4560</destination>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
-    <!--
+    <!-- 
 		logger主要用于存放日志对象，也可以定义日志类型、级别
 		name：表示匹配的logger类型前缀，也就是包的前半部分
 		level：要记录的日志级别，包括 TRACE < DEBUG < INFO < WARN < ERROR
@@ -82,10 +82,11 @@
 
     <!--
     root与logger是父子关系，没有特别定义则默认为root，任何一个类只会和一个logger对应，
-    要么是定义的logger，要么是root，判断的关键在于找到这个logger，然后判断这个logger的appender和level。
+    要么是定义的logger，要么是root，判断的关键在于找到这个logger，然后判断这个logger的appender和level。 
     -->
-    <root level="info">
+    <root level="debug">
         <appender-ref ref="stdout"/>
         <appender-ref ref="appLogAppender"/>
+        <appender-ref ref="logstash"/>
     </root>
 </configuration> 

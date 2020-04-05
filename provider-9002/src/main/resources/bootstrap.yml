@@ -1,0 +1,54 @@
+server:
+  port: 9002
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: NACOS-PROVIDER
+
+  #  datasource:
+  #    type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
+  #    driver-class-name: com.mysql.jdbc.Driver
+  #    url: jdbc:mysql://mysql:3306/cloud?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+  #    username: root
+  #    password: 123456
+
+#  devtools:
+#    restart:
+#      enabled: true #是否支持热部署
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 118.31.4.246:8868
+        namespace: dev
+      config:
+        server-addr: 118.31.4.246:8868
+        file-extension: yaml
+        #命名空间
+        namespace: dev
+        #读取的配置集合
+        ext-config:
+          - data-id: nacos-provider-mybatis.yaml
+            group: DEV_GROUP
+            refresh: true
+          - data-id: nacos-provider-datasource.yaml
+            group: DEV_GROUP
+            refresh: true
+
+
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.zgm.cloud.entity  #所有entity别名所在包
+
+#security:
+#  oauth2:
+#    resource:
+#      user-info-uri: http://localhost:9999/user/current/get
+#      id: account-service
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"

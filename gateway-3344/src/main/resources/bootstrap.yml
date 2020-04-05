@@ -1,14 +1,8 @@
 server:
-  port: 9999
-
+  port: 3344
 spring:
-  main:
-    allow-bean-definition-overriding: true
   application:
-    name: AUTH-SERVICE
-  devtools:
-    restart:
-      enabled: true #是否支持热部署
+    name: NACOS-GATEWAY
   cloud:
     nacos:
       discovery:
@@ -21,13 +15,8 @@ spring:
         namespace: dev
         #读取的配置集合
         ext-config:
-          - data-id: auth-service-mybatis.yaml
+          - data-id: nacos-gateway.yaml
             group: DEV_GROUP
             refresh: true
-          - data-id: auth-service-datasource.yaml
-            group: DEV_GROUP
-            refresh: true
-
-
 
 

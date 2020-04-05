@@ -1,5 +1,5 @@
 基于SpringCloud-alibaba的oauth2分布式项目，
-使用nacos+gateway+spring security oauth2，认证服务器+资源服务器.
+使用nacos+gateway+spring security oauth2，认证服务器+资源服务器.也集成了logstash收集日志
 
 Based on the oauth2 distributed project of springcloud-alibaba, 
 using nacos+gateway+spring security oauth2, authentication server + resource server.
@@ -16,3 +16,22 @@ provider-9002：资源服务器9002
 客户端配置存储也使用jdbc(mysql),之前也是基于内存，可以阅读代码还原为内存模式。
 令牌生成策略为JWT形式，使用JWT方式可以使资源服务器不需要调用验证服务器验证，增强服务稳定性和可靠性。
 密码生成和验证方式为PasswordEncoder方式，有效避免密码安全问题。
+
+#### 获取token
+http://127.0.0.1:3344/oauth/token 
+Authorization:选择Basic Auth,然后填入
+    Username:c1
+    Password:secret
+在表单中添加：
+    grant_type:password
+    username:zgm
+    password:123456
+    scope:ROLE_ADMIN
+#### 验证token
+http://127.0.0.1:3344/oauth/check_token
+在表单中添加：
+token:xxxxx
+#### 获取接口数据
+http://127.0.0.1:3344/payment/get/6
+Authorization:选择Bearer Token,然后填入
+    Token:xxxxx
