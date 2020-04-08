@@ -1,5 +1,6 @@
 package com.zgm.cloud.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.zgm.cloud.entity.CommonResult;
 import com.zgm.cloud.entity.Payment;
 import com.zgm.cloud.service.PaymentService;
