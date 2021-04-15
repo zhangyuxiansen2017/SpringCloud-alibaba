@@ -1,7 +1,0 @@
-com/zgm/cloud/dao/PaymentDao.class
-com/zgm/cloud/service/impl/PaymentServiceImpl.class
-com/zgm/cloud/controller/PaymentController.class
-com/zgm/cloud/service/PaymentService.class
-com/zgm/cloud/config/WebSecurityConfig.class
-com/zgm/cloud/Provider9001.class
-com/zgm/cloud/config/ResourceServerConfig.class
