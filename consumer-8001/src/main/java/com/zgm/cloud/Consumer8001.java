@@ -12,9 +12,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class Provider9001 {
+public class Consumer8001 {
 
     public static void main(String[] args) {
-        SpringApplication.run(Provider9001.class, args);
+        SpringApplication.run(Consumer8001.class, args);
     }
 }

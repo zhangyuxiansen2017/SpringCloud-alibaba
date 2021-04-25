@@ -35,3 +35,5 @@ token:xxxxx
 http://127.0.0.1:3344/payment/get/6
 Authorization:选择Bearer Token,然后填入
     Token:xxxxx
+
+分布式事务seata使用 doc/seata.md
