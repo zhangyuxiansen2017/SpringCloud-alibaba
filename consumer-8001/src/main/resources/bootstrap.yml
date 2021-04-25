@@ -1,10 +1,10 @@
 server:
-  port: 9001
+  port: 8001
 spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: NACOS-PROVIDER
+    name: NACOS-CONSUMER
 
   #  datasource:
   #    type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
@@ -19,7 +19,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 118.31.4.246:8868
+        server-addr: 1192.168.1.87:8868
         namespace: dev
       config:
         server-addr: 118.31.4.246:8868
