@@ -9,11 +9,12 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>provider-9001</module>
-        <module>commons-api</module>
-        <module>provider-9002</module>
         <module>auth-9999</module>
+        <module>commons-api</module>
         <module>gateway-3344</module>
+        <module>consumer-8001</module>
+        <module>provider-9001</module>
+        <module>provider-9002</module>
     </modules>
 
     <properties>
