@@ -7,9 +7,9 @@ ENV TIME_ZONE="Asia/Shanghai"
 
 WORKDIR /$BASE_DIR
 
-ADD provider-9001-1.0-SNAPSHOT.jar /app.jar
+ADD sonsumer-8001-1.0-SNAPSHOT.jar /app.jar
 
 
-EXPOSE 9001
+EXPOSE 8001
 
 ENTRYPOINT ["java","-jar","/app.jar"]

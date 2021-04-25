@@ -5,33 +5,27 @@ spring:
     allow-bean-definition-overriding: true
   application:
     name: NACOS-PROVIDER
-
-  #  datasource:
-  #    type: com.alibaba.druid.pool.DruidDataSource  #当前数据源操作类型
-  #    driver-class-name: com.mysql.jdbc.Driver
-  #    url: jdbc:mysql://mysql:3306/cloud?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-  #    username: root
-  #    password: 123456
-
-#  devtools:
-#    restart:
-#      enabled: true #是否支持热部署
   cloud:
     nacos:
+      username: nacos
+      password: 1991820
       discovery:
-        server-addr: 118.31.4.246:8868
+        server-addr: 192.168.1.87:8848
         namespace: dev
       config:
-        server-addr: 118.31.4.246:8868
+        server-addr: 192.168.1.87:8848
         file-extension: yaml
         #命名空间
         namespace: dev
         #读取的配置集合
-        ext-config:
+        extension-configs:
           - data-id: nacos-provider-mybatis.yaml
             group: DEV_GROUP
             refresh: true
           - data-id: nacos-provider-datasource.yaml
+            group: DEV_GROUP
+            refresh: true
+          - data-id: nacos-provider-seata.yaml
             group: DEV_GROUP
             refresh: true
     sentinel:

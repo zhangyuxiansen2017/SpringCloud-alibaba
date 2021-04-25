@@ -72,7 +72,6 @@ CREATE TABLE `payment` (
 -- Records of payment
 -- ----------------------------
 BEGIN;
-INSERT INTO `payment` VALUES (5, '尚硅谷');
 INSERT INTO `payment` VALUES (6, 'alibaba');
 INSERT INTO `payment` VALUES (7, '京东');
 INSERT INTO `payment` VALUES (8, '头条');
