@@ -88,12 +88,30 @@ docker run  -d --name seata -p 8091:8091  -e SEATA_IP=127.0.0.1 -e SEATA_CONFIG_
 在需要使用到分布式事务的项目中都需要引入上面依赖
 在项目中加入对应配置
 ```yaml
-
+seata:
+  enabled: true
+  application-id: NACOS-PROVIDER
+  tx-service-group: product-server-group
+  enable-auto-data-source-proxy: true
+  config:
+    type: nacos
+    nacos:
+      namespace: seata
+      server-addr: 192.168.1.87:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 192.168.1.87:8848
+      namespace: seata
+      username: nacos
+      password: nacos
 ```
 在主启动类中加入@EnableAutoDataSourceProxy
 在需要分布式事务的主方法上加上@GlobalTransactional(name = "product-server-group", rollbackFor = Exception.class)
-
-
 
 ####2、如果启动报错，可能还需要一个数据源，则创建对应的数据源
 ```java
@@ -107,4 +125,4 @@ public class SeataProxyConfig {
 }
 ```
 
-####3、如还存在问题请提issue或者加qq 291777408
+####3、如还存在问题请提issue或者加qq:291777408
