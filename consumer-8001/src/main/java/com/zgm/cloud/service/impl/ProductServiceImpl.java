@@ -1,6 +1,7 @@
 package com.zgm.cloud.service.impl;
 
 import com.zgm.cloud.dao.ProductDao;
+import com.zgm.cloud.entity.Product;
 import com.zgm.cloud.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,12 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public void subtractProduct(Long productId) {
-        productDao.subtractProduct(productId);
+    public void subtractProduct(Integer num,Long productId) {
+        productDao.subtractProduct(num,productId);
+    }
+
+    @Override
+    public Product getProduct(Long productId) {
+        return productDao.getProduct(productId);
     }
 }

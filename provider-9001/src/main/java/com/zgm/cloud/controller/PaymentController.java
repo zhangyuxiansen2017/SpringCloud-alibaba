@@ -40,7 +40,7 @@ public class PaymentController {
         log.info("插入数据的ID:\t" + payment.getId());
         log.info("插入结果：" + result);
         //扣减数量
-        productFeignService.subtractProduct();
+        productFeignService.subtractProduct(1L);
 
 //        int i = 10 / 0;
         if (result > 0) {
