@@ -84,7 +84,7 @@ docker run  -d --name seata -p 8091:8091  -e SEATA_IP=127.0.0.1 -e SEATA_CONFIG_
     <version>1.4.0</version>
 </dependency>
 ```
-#### 2、使用
+#### 2、项目中使用
 在需要使用到分布式事务的项目中都需要引入上面依赖
 在项目中加入对应配置
 ```yaml
