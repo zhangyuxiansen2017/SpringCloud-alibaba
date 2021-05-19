@@ -28,8 +28,6 @@ spring:
           - data-id: nacos-provider-seata.yaml
             group: DEV_GROUP
             refresh: true
-
-
     sentinel:
       transport:
         dashboard: localhost:8080

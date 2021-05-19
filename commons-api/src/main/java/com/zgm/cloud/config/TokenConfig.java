@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 public class TokenConfig {
 
-    private String SIGNING_KEY = "uaa123";
+    private final String SIGNING_KEY = "uaa123";
 
     /**
      * 生成令牌存储方式

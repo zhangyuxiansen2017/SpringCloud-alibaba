@@ -11,16 +11,18 @@ spring:
       enabled: true #是否支持热部署
   cloud:
     nacos:
+      username: nacos
+      password: 1991820
       discovery:
-        server-addr: 118.31.4.246:8868
+        server-addr: 192.168.1.87:8848
         namespace: dev
       config:
-        server-addr: 118.31.4.246:8868
+        server-addr: 192.168.1.87:8848
         file-extension: yaml
         #命名空间
         namespace: dev
         #读取的配置集合
-        ext-config:
+        extension-configs:
           - data-id: auth-service-mybatis.yaml
             group: DEV_GROUP
             refresh: true
