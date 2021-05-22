@@ -8,7 +8,7 @@
     <!-- 定义日志的根目录 -->
     <property name="LOG_HOME" value="log"/>
     <!-- 定义日志文件名称 -->
-    <property name="appName" value="springbootlog"></property>
+    <property name="appName" value="springbootlog"/>
     <!-- ch.qos.logback.core.ConsoleAppender 表示控制台输出 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <!--
@@ -77,14 +77,14 @@
     <!-- hibernate logger -->
     <logger name="cn.zhangguimin.crud" level="debug"/>
     <!-- Spring framework logger -->
-    <logger name="org.springframework" level="debug" additivity="false"></logger>
+    <logger name="org.springframework" level="debug" additivity="false"/>
 
 
     <!--
     root与logger是父子关系，没有特别定义则默认为root，任何一个类只会和一个logger对应，
     要么是定义的logger，要么是root，判断的关键在于找到这个logger，然后判断这个logger的appender和level。 
     -->
-    <root level="debug">
+    <root level="info">
         <appender-ref ref="stdout"/>
         <appender-ref ref="appLogAppender"/>
         <appender-ref ref="logstash"/>

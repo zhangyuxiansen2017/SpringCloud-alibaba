@@ -35,8 +35,6 @@ public class PaymentController {
         log.info("插入数据的ID:\t" + payment.getId());
         log.info("插入结果：" + result);
 
-        int i = 10 / 0;
-
     }
 
     @GetMapping("/get/{id}")
