@@ -32,7 +32,7 @@ http://127.0.0.1:3344/oauth/check_token
 在表单中添加：
 token:xxxxx
 #### 获取接口数据
-http://127.0.0.1:3344/payment/get/6
+http://127.0.0.1:3344/payment/get/6 
 Authorization:选择Bearer Token,然后填入
     Token:xxxxx
 
