@@ -1,10 +1,8 @@
 package com.zgm.cloud;
 
-import io.seata.spring.annotation.datasource.EnableAutoDataSourceProxy;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @Description
@@ -12,10 +10,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @Date 2020/3/6 09:53
  * @Website https://www.zhangguimin.cn
  */
-@EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableAutoDataSourceProxy
 public class Consumer8001 {
 
     public static void main(String[] args) {
