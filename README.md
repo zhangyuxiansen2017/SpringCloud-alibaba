@@ -1,5 +1,3 @@
-[toc]
-
 ## 一、security的微服务授权认证
 
 ​		基于SpringCloud-alibaba的oauth2分布式项目，主要技术栈 nacos+gateway+spring security oauth2，认证服务器+资源服务器.也集成了logstash收集日志
