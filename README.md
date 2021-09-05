@@ -37,3 +37,5 @@ Authorization:选择Bearer Token,然后填入
     Token:xxxxx
 
 点击了解分布式事务seata的使用 [seata](doc/seata.md)
+
+新增分支 for-k8s 支持k8s服务注册和配置中心，需要了解，请切到对应分支查看
