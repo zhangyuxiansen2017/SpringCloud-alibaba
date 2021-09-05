@@ -3,52 +3,5 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
-  application:
-    name: NACOS-CONSUMER
   cloud:
-    nacos:
-      username: nacos
-      password: 1991820
-      discovery:
-        server-addr: 192.168.1.87:8848
-        namespace: dev
-      config:
-        server-addr: 192.168.1.87:8848
-        file-extension: yaml
-        #命名空间
-        namespace: dev
-        #读取的配置集合
-        extension-configs:
-          - data-id: nacos-provider-mybatis.yaml
-            group: DEV_GROUP
-            refresh: true
-          - data-id: nacos-consumer-datasource.yaml
-            group: DEV_GROUP
-            refresh: true
-          - data-id: nacos-provider-seata.yaml
-            group: DEV_GROUP
-            refresh: true
-          - data-id: redisson-single.yml
-            group: DEV_GROUP
-            refresh: true
-#    sentinel:
-#      transport:
-#        dashboard: localhost:8080
-#        port: 8719
 
-
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
-#  type-aliases-package: com.zgm.cloud.entity  #所有entity别名所在包
-
-#security:
-#  oauth2:
-#    resource:
-#      user-info-uri: http://localhost:9999/user/current/get
-#      id: account-service
-
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"

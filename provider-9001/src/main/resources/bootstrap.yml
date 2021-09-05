@@ -5,14 +5,29 @@ server:
 spring:
   main:
     allow-bean-definition-overriding: true
-  application:
-    name: NACOS-PROVIDER
   cloud:
     kubernetes:
       reload:
         enabled: true
+        monitoring-config-maps: true
+        strategy: RESTART_CONTEXT
         mode: event
       config:
-        sources:
-          - name: provider
-            namespace: octopus
+        enabled: true
+        name: provider
+        namespace: octopus
+management:
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: restart,health,info,refresh
+
+
+

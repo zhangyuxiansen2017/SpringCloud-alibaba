@@ -34,34 +34,18 @@ subjects:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: provider
+  name: consumer
   namespace: octopus
 data:
   application.yml: |-
     spring:
-      profiles: pro
-      shardingsphere:
-        masterslave:
-          name: ms
-          master-data-source-name: master
-          slave-data-source-names: slave
-        datasource:
-          names: master,slave
-          master:
-            type: com.alibaba.druid.pool.DruidDataSource
-            driver-class-name: com.mysql.jdbc.Driver
-            url: jdbc:mysql://127.0.0.1:3306/cloud_01?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-            username: root
-            password: '123456'
-          slave:
-            type: com.alibaba.druid.pool.DruidDataSource
-            driver-class-name: com.mysql.jdbc.Driver
-            url: jdbc:mysql://127.0.0.1:3307/cloud_01?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-            username: root
-            password: '123456'
-        props:
-          sql:
-            show: true
+      datasource:
+        type: com.alibaba.druid.pool.DruidDataSource  # 当前数据源操作类型
+        driver-class-name: com.mysql.jdbc.Driver
+        #rancher配置 url: jdbc:mysql://mysql:3306/cloud?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+        url: jdbc:mysql://127.0.0.1:3306/product_db?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+        username: root
+        password: '123456'
     mybatis:
       mapper-locations: classpath:mapper/*.xml
       type-aliases-package: com.zgm.cloud.entity
