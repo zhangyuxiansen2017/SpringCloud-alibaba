@@ -14,7 +14,6 @@
         <module>gateway-3344</module>
         <module>consumer-8001</module>
         <module>provider-9001</module>
-        <module>provider-9002</module>
     </modules>
 
     <properties>

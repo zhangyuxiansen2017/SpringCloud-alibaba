@@ -15,37 +15,41 @@ spring:
       config:
         server-addr: 192.168.1.87:8848
         file-extension: yaml
-        #命名空间
         namespace: dev
-        #读取的配置集合
         extension-configs:
           - data-id: nacos-provider-mybatis.yaml
             group: DEV_GROUP
             refresh: true
-          - data-id: nacos-provider-datasource.yaml
-            group: DEV_GROUP
-            refresh: true
-          - data-id: nacos-provider-seata.yaml
-            group: DEV_GROUP
-            refresh: true
-    sentinel:
-      transport:
-        dashboard: localhost:8080
-        port: 8719
-
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
-#  type-aliases-package: com.zgm.cloud.entity  #所有entity别名所在包
-
-#security:
-#  oauth2:
-#    resource:
-#      user-info-uri: http://localhost:9999/user/current/get
-#      id: account-service
-
-
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.1.87:3306/cloud1?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+        username: root
+        password: '!Zhangguimin2020'
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.1.87:3306/cloud2?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+        username: root
+        password: '!Zhangguimin2020'
+    sharding:
+      tables:
+        spring.shardingsphere.sharding.tables.t_order.actual-data-nodes=ds_$->{0..1}.t_order_$->{0..1}
+        spring.shardingsphere.sharding.tables.t_order.table-strategy.inline.sharding-column=order_id
+        spring.shardingsphere.sharding.tables.t_order.table-strategy.inline.algorithm-expression=t_order_$->{order_id % 2}
+        spring.shardingsphere.sharding.tables.t_order.key-generator.column=order_id
+        spring.shardingsphere.sharding.tables.t_order.key-generator.type=SNOWFLAKE
+        spring.shardingsphere.sharding.tables.t_order_item.actual-data-nodes=ds_$->{0..1}.t_order_item_$->{0..1}
+        spring.shardingsphere.sharding.tables.t_order_item.table-strategy.inline.sharding-column=order_id
+        spring.shardingsphere.sharding.tables.t_order_item.table-strategy.inline.algorithm-expression=t_order_item_$->{order_id % 2}
+        spring.shardingsphere.sharding.tables.t_order_item.key-generator.column=order_item_id
+        spring.shardingsphere.sharding.tables.t_order_item.key-generator.type=SNOWFLAKE
+        spring.shardingsphere.sharding.encrypt-rule.encryptors.encryptor_aes.type=aes
+        spring.shardingsphere.sharding.encrypt-rule.encryptors.encryptor_aes.props.aes.key.value=123456
+        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.plainColumn=user_decrypt
+        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.cipherColumn=user_encrypt
+        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.assistedQueryColumn=user_assisted
+        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.encryptor=encryptor_aes
