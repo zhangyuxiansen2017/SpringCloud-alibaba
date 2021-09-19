@@ -37,7 +37,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.3</version>
+                <version>2.2.2.RELEASE</version>
                 <configuration>
                     <!-- 生成可执行的jar的名字：xxx-exec.jar -->
                     <!-- 不固定，写成abcd都可以 -->
