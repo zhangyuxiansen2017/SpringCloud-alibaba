@@ -1,55 +1,41 @@
 server:
   port: 9001
+  servlet:
+    context-path: /provider
 spring:
   main:
     allow-bean-definition-overriding: true
-  application:
-    name: NACOS-PROVIDER
   cloud:
-    nacos:
-      username: nacos
-      password: 1991820
-      discovery:
-        server-addr: 192.168.1.87:8848
-        namespace: dev
+    loadbalancer:
+      ribbon:
+        enabled: false
+    kubernetes:
+      reload:
+        enabled: true
+        monitoring-config-maps: true
+        strategy: RESTART_CONTEXT
+        mode: event
       config:
-        server-addr: 192.168.1.87:8848
-        file-extension: yaml
-        namespace: dev
-        extension-configs:
-          - data-id: nacos-provider-mybatis.yaml
-            group: DEV_GROUP
-            refresh: true
-  shardingsphere:
-    datasource:
-      names: ds0,ds1
-      ds0:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://192.168.1.87:3306/cloud1?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-        username: root
-        password: '!Zhangguimin2020'
-      ds1:
-        type: com.alibaba.druid.pool.DruidDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        url: jdbc:mysql://192.168.1.87:3306/cloud2?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-        username: root
-        password: '!Zhangguimin2020'
-    sharding:
-      tables:
-        spring.shardingsphere.sharding.tables.t_order.actual-data-nodes=ds_$->{0..1}.t_order_$->{0..1}
-        spring.shardingsphere.sharding.tables.t_order.table-strategy.inline.sharding-column=order_id
-        spring.shardingsphere.sharding.tables.t_order.table-strategy.inline.algorithm-expression=t_order_$->{order_id % 2}
-        spring.shardingsphere.sharding.tables.t_order.key-generator.column=order_id
-        spring.shardingsphere.sharding.tables.t_order.key-generator.type=SNOWFLAKE
-        spring.shardingsphere.sharding.tables.t_order_item.actual-data-nodes=ds_$->{0..1}.t_order_item_$->{0..1}
-        spring.shardingsphere.sharding.tables.t_order_item.table-strategy.inline.sharding-column=order_id
-        spring.shardingsphere.sharding.tables.t_order_item.table-strategy.inline.algorithm-expression=t_order_item_$->{order_id % 2}
-        spring.shardingsphere.sharding.tables.t_order_item.key-generator.column=order_item_id
-        spring.shardingsphere.sharding.tables.t_order_item.key-generator.type=SNOWFLAKE
-        spring.shardingsphere.sharding.encrypt-rule.encryptors.encryptor_aes.type=aes
-        spring.shardingsphere.sharding.encrypt-rule.encryptors.encryptor_aes.props.aes.key.value=123456
-        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.plainColumn=user_decrypt
-        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.cipherColumn=user_encrypt
-        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.assistedQueryColumn=user_assisted
-        spring.shardingsphere.sharding.encrypt-rule.tables.t_order.columns.user_id.encryptor=encryptor_aes
+        enabled: true
+        name: provider
+        namespace: octopus
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+management:
+  endpoint:
+    restart:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: restart,health,info,refresh
+
+
+

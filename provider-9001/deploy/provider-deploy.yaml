@@ -1,0 +1,154 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: provider
+  namespace: octopus
+rules:
+  - apiGroups: [ "" ]
+    resources: [ "pods","configmaps","services","endpoints","secrets" ]
+    verbs: [ "get", "watch", "list" ]
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: provider
+  namespace: octopus
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: provider
+  namespace: octopus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: provider
+subjects:
+  - kind: ServiceAccount
+    name: provider
+    namespace: octopus
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: provider
+  namespace: octopus
+data:
+  application.yml: |-
+    spring:
+      profiles: pro
+      shardingsphere:
+        masterslave:
+          name: ms
+          master-data-source-name: master
+          slave-data-source-names: slave
+        datasource:
+          names: master,slave
+          master:
+            type: com.alibaba.druid.pool.DruidDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://192.168.1.87:3306/cloud_01?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+            username: root
+            password: '!Zhangguimin2020'
+          slave:
+            type: com.alibaba.druid.pool.DruidDataSource
+            driver-class-name: com.mysql.jdbc.Driver
+            url: jdbc:mysql://192.168.1.87:3307/cloud_01?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+            username: root
+            password: '!Zhangguimin2020'
+        props:
+          sql:
+            show: true
+    mybatis:
+      mapper-locations: classpath:mapper/*.xml
+      type-aliases-package: com.zgm.cloud.entity
+    ks:
+      info: zgm
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: provider
+  namespace: octopus
+  labels:
+    app: provider
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: provider
+  template:
+    metadata:
+      labels:
+        app: provider
+    spec:
+      serviceAccountName: provider
+      containers:
+        - name: provider
+          #jenkinsfile读取
+          image:  provider:latest
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: pro
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          ports:
+            - containerPort: 9001
+              protocol: TCP
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Never
+          livenessProbe:
+            httpGet:
+              path: /provider/actuator/health/liveness
+              port: 9001
+            initialDelaySeconds: 5
+            failureThreshold: 10
+            timeoutSeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /provider/actuator/health/readiness
+              port: 9001
+            initialDelaySeconds: 5
+            timeoutSeconds: 10
+            periodSeconds: 5
+      terminationGracePeriodSeconds: 30
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: provider
+  namespace: octopus
+  labels:
+    app: provider
+  annotations:
+    kubesphere.io/alias-name: provider
+    kubesphere.io/description: provider
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 9001
+      targetPort: 9001
+      #需要修改
+      nodePort: 30012
+  selector:
+    app: provider
+  type: NodePort
+  sessionAffinity: None

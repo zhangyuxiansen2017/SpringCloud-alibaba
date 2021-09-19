@@ -1,28 +1,45 @@
 server:
   port: 3344
 spring:
+  profiles: pro
   application:
-    name: NACOS-GATEWAY
+    name: GATEWAY
+  main:
+    allow-bean-definition-overriding: true
   cloud:
-    nacos:
-      username: nacos
-      password: 1991820
+    #网关跨域支持
+    gateway:
       discovery:
-        server-addr: 192.168.1.87:8848
-        namespace: dev
-      config:
-        server-addr: 192.168.1.87:8848
-        file-extension: yaml
-        #命名空间
-        namespace: dev
-        #读取的配置集合
-        extension-configs:
-          - data-id: nacos-gateway.yaml
-            group: DEV_GROUP
-            refresh: true
-    sentinel:
-      transport:
-        dashboard: localhost:8080
-        port: 8719
+        locator:
+          enabled: true  #开启注册中心路由功能
+      routes:
+        - id: payment_routh
+          uri: lb://provider
+          predicates:
+            - Path=/provider/**
+        - id: auth_route
+          uri: lb://auth
+          predicates:
+            - Path=/oauth/**
+        - id: third_party_route
+          uri: lb://third_party
+          predicates:
+            - Path=/oss/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            # 允许携带认证信息
+            # 允许跨域的源(网站域名/ip)，设置*为全部
+            # 允许跨域请求里的head字段，设置*为全部
+            # 允许跨域的method， 默认为GET和OPTIONS，设置*为全部
+            # 跨域允许的有效期
+            allow-credentials: true
+            allowed-origins: "*"
+            allowed-headers: "*"
+            allowed-methods:
+              - OPTIONS
+              - GET
+              - POST
+            max-age: 3600
 
 

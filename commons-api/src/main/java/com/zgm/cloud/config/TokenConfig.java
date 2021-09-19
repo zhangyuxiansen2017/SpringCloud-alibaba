@@ -15,10 +15,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 public class TokenConfig {
 
-    private final String SIGNING_KEY = "uaa123";
+    private String SIGNING_KEY = "uaa123";
 
     /**
      * 生成令牌存储方式
+     *
      * @return
      */
     @Bean
@@ -29,8 +30,9 @@ public class TokenConfig {
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(SIGNING_KEY); //对称秘钥，资源服务器使用该秘钥来验证
-         return converter;
+        //对称秘钥，资源服务器使用该秘钥来验证
+        converter.setSigningKey(SIGNING_KEY);
+        return converter;
     }
 
     /**
