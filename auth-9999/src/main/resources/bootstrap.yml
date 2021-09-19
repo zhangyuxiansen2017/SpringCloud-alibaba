@@ -4,12 +4,14 @@ spring:
   profiles: pro
   main:
     allow-bean-definition-overriding: true
+  application:
+    name: AUTH-SERVICE
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/cloud?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
+    url: jdbc:mysql://192.168.1.87:3306/cloud?characterEncoding=utf8&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
     username: root
-    password: 123456
+    password: '!Zhangguimin2020'
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.zgm.cloud.entity
@@ -18,3 +20,7 @@ management:
     web:
       exposure:
         include: "*"
+
+
+
+

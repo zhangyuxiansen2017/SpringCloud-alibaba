@@ -1,33 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth
+  name: third-party
   namespace: octopus
   labels:
-    app: auth
+    app: third-party
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: third-party
   template:
     metadata:
       labels:
-        app: auth
+        app: third-party
     spec:
       containers:
-        - name: auth
+        - name: third-party
           #jenkinsfile读取
-          image: auth:latest
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: pro
+          image: third-party:latest
           ports:
-            - containerPort: 9999
+            - containerPort: 9003
               protocol: TCP
           terminationMessagePath: /dev/termination-log
           terminationMessagePolicy: File
           imagePullPolicy: Never
+          env:
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
       terminationGracePeriodSeconds: 30
       restartPolicy: Always
   strategy:
@@ -42,22 +44,22 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth
+  name: third-party
   namespace: octopus
   labels:
-    app: auth
+    app: third
   annotations:
-    kubesphere.io/alias-name: auth
-    kubesphere.io/description: auth
+    kubesphere.io/alias-name: third-party
+    kubesphere.io/description: third-party
 spec:
   ports:
     - name: http
       protocol: TCP
-      port: 9999
-      targetPort: 9999
+      port: 9003
+      targetPort: 9003
       #需要修改
-      nodePort: 30011
+      nodePort: 30014
   selector:
-    app: auth
+    app: third-party
   type: NodePort
   sessionAffinity: None

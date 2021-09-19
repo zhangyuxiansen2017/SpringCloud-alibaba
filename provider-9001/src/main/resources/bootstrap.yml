@@ -6,6 +6,9 @@ spring:
   main:
     allow-bean-definition-overriding: true
   cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
     kubernetes:
       reload:
         enabled: true
@@ -16,6 +19,11 @@ spring:
         enabled: true
         name: provider
         namespace: octopus
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
 management:
   endpoint:
     restart:

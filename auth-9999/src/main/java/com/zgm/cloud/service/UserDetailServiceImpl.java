@@ -26,14 +26,14 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         //获取本地用户
         User user = userMapper.selectByUserName(userName);
-        if(user != null){
+        if (user != null) {
             //返回oauth2的用户
             return new org.springframework.security.core.userdetails.User(
                     user.getUserName(),
                     user.getPassWord(),
-                    AuthorityUtils.createAuthorityList(user.getRole())) ;
-        }else{
-            throw  new UsernameNotFoundException("用户["+userName+"]不存在");
+                    AuthorityUtils.createAuthorityList(user.getRole()));
+        } else {
+            throw new UsernameNotFoundException("用户[" + userName + "]不存在");
         }
     }
 }

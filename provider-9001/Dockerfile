@@ -5,6 +5,5 @@ RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shang
 WORKDIR /$BASE_DIR
 ADD target/provider-9001-1.0-SNAPSHOT.jar /app.jar
 RUN bash -c 'touch /app.jar'
-
 EXPOSE 9001
 ENTRYPOINT ["java","-jar","-Xms128m","-Xmx500m","/app.jar"]

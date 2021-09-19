@@ -52,19 +52,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     /**
      * 从数据库读取客户端信息
+     *
      * @param dataSource
      * @return
      */
     @Bean
     public ClientDetailsService clientDetailsService(DataSource dataSource) {
-        ClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
-        ((JdbcClientDetailsService)
-                clientDetailsService).setPasswordEncoder(passwordEncoder);
+        JdbcClientDetailsService clientDetailsService = new JdbcClientDetailsService(dataSource);
+        clientDetailsService.setPasswordEncoder(passwordEncoder);
         return clientDetailsService;
     }
 
     /**
      * 设置授权码存储方式:InMemoryAuthorizationCodeServices()为内存形式
+     *
      * @param dataSource
      * @return
      */
@@ -90,8 +91,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         tokenEnhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
         service.setTokenEnhancer(tokenEnhancerChain);
 
-        service.setAccessTokenValiditySeconds(7200); // 令牌默认有效期2小时
-        service.setRefreshTokenValiditySeconds(259200); // 刷新令牌默认有效期3天
+        // 令牌默认有效期2小时
+        service.setAccessTokenValiditySeconds(7200);
+        // 刷新令牌默认有效期3天
+        service.setRefreshTokenValiditySeconds(259200);
         return service;
     }
 
@@ -105,15 +108,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
         clients.
-                withClientDetails(clientDetailsService);//使用jdbc存储
-                //inMemory()// 使用in‐memory存储
-                //.withClient("c1")
-                //.secret(new BCryptPasswordEncoder().encode("secret"))
-                //.resourceIds("res1")
-                //.authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")// 该client允许的授权类型 authorization_code,password,refresh_token,implicit,client_credentials
-                //.scopes("all")// 允许的授权范围
-                //.autoApprove(false)//加上验证回调地址
-                //.redirectUris("http://www.baidu.com");
+                //使用jdbc存储
+                        withClientDetails(clientDetailsService);
+        //inMemory()// 使用in‐memory存储
+        //.withClient("c1")
+        //.secret(new BCryptPasswordEncoder().encode("secret"))
+        //.resourceIds("res1")
+        //.authorizedGrantTypes("authorization_code", "password", "client_credentials", "implicit", "refresh_token")// 该client允许的授权类型 authorization_code,password,refresh_token,implicit,client_credentials
+        //.scopes("all")// 允许的授权范围
+        //.autoApprove(false)//加上验证回调地址
+        //.redirectUris("http://www.baidu.com");
     }
 
 
@@ -125,9 +129,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
-                .authenticationManager(authenticationManager)   //密码登录模式
-                .authorizationCodeServices(authorizationCodeServices)   //授权码模式
-                .tokenServices(tokenService())  //令牌管理，生成令牌
+                //密码登录模式
+                .authenticationManager(authenticationManager)
+                //授权码模式
+                .authorizationCodeServices(authorizationCodeServices)
+                //令牌管理，生成令牌
+                .tokenServices(tokenService())
                 .allowedTokenEndpointRequestMethods(HttpMethod.POST);
     }
 

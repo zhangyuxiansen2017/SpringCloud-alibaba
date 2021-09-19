@@ -1,7 +1,0 @@
-server:
-  port: 8001
-spring:
-  main:
-    allow-bean-definition-overriding: true
-  cloud:
-
