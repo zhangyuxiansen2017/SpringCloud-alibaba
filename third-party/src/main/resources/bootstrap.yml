@@ -10,8 +10,8 @@ spring:
       enabled: true #是否支持热部署
   cloud:
     alicloud:
-      access-key: LTAI4FinZXFJ6VAG1FuEDQhB
-      secret-key: AYwtVxZWg8K5maf0yUdbX9TjTKcK33
+      access-key:
+      secret-key:
       oss:
         endpoint: oss-cn-chengdu.aliyuncs.com
         bucket: oss-octopus
