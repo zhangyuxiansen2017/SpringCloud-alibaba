@@ -27,8 +27,8 @@ jobs:
         uses: risfeng/docker-image-build-push-action@v1.0
         with:
           registry_url: 'registry.us-east-1.aliyuncs.com'
-          namespaces: 'adotcode'
-          repository_name: 'adc.ms.eureka.usa'
+          namespaces: 'octopus'
+          repository_name: 'alibaba-cloud'
           user_name: ${{ secrets.ALIYUN_IMAGES_HUB_USER_NAME }}
           password: ${{ secrets.ALIYUN_IMAGES_HUB_TOKEN }}
           image_version: 'v1.0'
